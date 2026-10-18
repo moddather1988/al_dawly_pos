@@ -37,7 +37,7 @@ jobs:
           mkdir -p lib/database/connection
           mkdir -p lib/database/daos
 
-          # 1. pubspec.yaml (محدث ليتوافق مع أحدث إصدارات الحزم)
+          # 1. pubspec.yaml
           cat << 'EOF' > pubspec.yaml
           name: al_dawly_pos
           description: نظام الدولي لإدارة محل قطع غيار الموتسيكلات ونقاط البيع - AL DAWLY POS
@@ -578,7 +578,7 @@ jobs:
             TextColumn get originalPurchaseInvoiceId => text().nullable().references(PurchaseInvoices, #id)();
             TextColumn get customerId => text().nullable().references(Customers, #id)();
             TextColumn get supplierId => text().nullable().references(Suppliers, #id)();
-            TextColumn get warehouseId => text().references(Warehouses, #id)();
+            TextColumn get warehouseId => text().nullable().references(Warehouses, #id)();
             IntColumn get totalReturnAmountMinor => integer()();
             IntColumn get cashRefundedMinor => integer().withDefault(const Constant(0))();
             IntColumn get creditBalanceAdjustedMinor => integer().withDefault(const Constant(0))();
@@ -1196,7 +1196,7 @@ jobs:
           });
           EOF
 
-          # 15. lib/main.dart
+          # 15. lib/main.dart (تم تصحيح CardTheme إلى CardThemeData)
           cat << 'EOF' > lib/main.dart
           import 'package:flutter/material.dart';
           import 'package:flutter_localizations/flutter_localizations.dart';
@@ -1266,11 +1266,11 @@ jobs:
                     foregroundColor: Colors.white,
                     elevation: 0,
                   ),
-                  cardTheme: CardTheme(
+                  cardTheme: const CardThemeData(
                     color: darkCardBg,
                     elevation: 3,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
+                      borderRadius: BorderRadius.all(Radius.circular(14)),
                     ),
                   ),
                   elevatedButtonTheme: ElevatedButtonThemeData(
