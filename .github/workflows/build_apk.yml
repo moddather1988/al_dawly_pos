@@ -23,9 +23,9 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: 4. Create Android Project Structure
+      - name: 4. Create Android Project Structure safely
         run: |
-          flutter create --org com.aldawly.pos --project-name al_dawly_pos --platforms=android .
+          flutter create --org com.aldawly.pos --project-name al_dawly_pos --platforms=android --overwrite .
           rm -rf test
 
       - name: 5. Generate All Project Files Automatically
