@@ -23,12 +23,17 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: 4. Create Android Project Structure safely
+      - name: 4. Create Clean Flutter App
         run: |
-          flutter create --org com.aldawly.pos --project-name al_dawly_pos --platforms=android --overwrite .
-          rm -rf test
+          # إنشاء مشروع مؤقت في مسار منفصل لتجنب تعارض الملفات المخفية
+          flutter create temp_app --org com.aldawly.pos --platforms=android
+          
+          # نقل مجلد android الناتج وباقي ملفات التكوين القياسية إلى المجلد الرئيسي
+          cp -r temp_app/android ./
+          cp temp_app/pubspec.yaml ./pubspec_default.yaml
+          rm -rf temp_app
 
-      - name: 5. Generate All Project Files Automatically
+      - name: 5. Generate All Project Source Files
         run: |
           mkdir -p lib/core/constants
           mkdir -p lib/core/utils
